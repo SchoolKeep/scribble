@@ -1,7 +1,7 @@
 module Scribble
   module Methods
     class Each < Block
-      register :each, String, on: Object
+      register :each, String, on: Enumerable
 
       def each name
         @receiver.map { |item|
