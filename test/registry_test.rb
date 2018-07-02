@@ -18,11 +18,11 @@ describe Scribble::Registry do
   it 'gathers method signatures along with method names' do
     @registry.for String do
       method :foo, String
-      method :bar, Fixnum, [String]
+      method :bar, Integer, [String]
     end
 
     assert_equal [String],           @registry.methods[0].signature
-    assert_equal [Fixnum, [String]], @registry.methods[1].signature
+    assert_equal [Integer, [String]], @registry.methods[1].signature
   end
 
   it 'gathers methods for multiple classes at once' do
@@ -39,7 +39,7 @@ describe Scribble::Registry do
     it 'calculates arity' do
       @registry.for String do
         method :foo
-        method :bar, String, Fixnum
+        method :bar, String, Integer
         method :baz, [String]
         method :qux, String, [String, 3]
       end
@@ -106,15 +106,15 @@ describe Scribble::Registry do
   describe 'evaluation' do
 
     it 'it delegates evaluation to matching methods' do
-      @registry.for Fixnum do
+      @registry.for Integer do
         method :foo,                   returns: 0
         method :foo, String,           returns: 1
-        method :foo, String, Fixnum,   returns: 2
-        method :foo, Fixnum,           returns: 3
-        method :foo, Fixnum, [String], returns: 4
+        method :foo, String, Integer,   returns: 2
+        method :foo, Integer,           returns: 3
+        method :foo, Integer, [String], returns: 4
         method :foo, [String, 2],      returns: 5
         method :foo, [String],         returns: 6
-        method :foo, [String], Fixnum, returns: 7
+        method :foo, [String], Integer, returns: 7
         method :foo, [Object],         returns: 8
       end
 
@@ -168,7 +168,7 @@ describe Scribble::Registry do
         to_boolean { self == 'foo' }
       end
 
-      @registry.for Fixnum do
+      @registry.for Integer do
         to_boolean { self > 0 }
       end
 
@@ -185,7 +185,7 @@ describe Scribble::Registry do
         to_string { self }
       end
 
-      @registry.for Fixnum do
+      @registry.for Integer do
         to_string { to_s }
       end
 
@@ -209,13 +209,13 @@ describe Scribble::Registry do
         method :bar, String
       end
 
-      @registry.for Fixnum do
+      @registry.for Integer do
         method :foo
       end
 
       assert_raises_message(/Duplicate method/) { @registry.for(String) { method :foo } }
       assert_raises_message(/Duplicate method/) { @registry.for(String) { method :bar, String } }
-      assert_raises_message(/Duplicate method/) { @registry.for(Fixnum) { method :foo } }
+      assert_raises_message(/Duplicate method/) { @registry.for(Integer) { method :foo } }
 
       assert_equal 4, @registry.methods.size
     end
@@ -240,8 +240,8 @@ describe Scribble::Registry do
       assert_raises_message(/must be a non-block/) { @registry.for(String) { method :foo, String, block: true } }
       assert_raises_message(/must be a block/)     { @registry.for(String) { method :bar, String } }
 
-      assert_raises_message(/must be a non-block/) { @registry.for(Fixnum) { method :foo, block: true } }
-      assert_raises_message(/must be a block/)     { @registry.for(Fixnum) { method :bar } }
+      assert_raises_message(/must be a non-block/) { @registry.for(Integer) { method :foo, block: true } }
+      assert_raises_message(/must be a block/)     { @registry.for(Integer) { method :bar } }
 
       assert_equal 2, @registry.methods.size
     end
@@ -255,8 +255,8 @@ describe Scribble::Registry do
       assert_raises_message(/must be a non-split/) { @registry.for(String) { method :foo, String, split: true } }
       assert_raises_message(/must be a split/) { @registry.for(String) { method :bar, String } }
 
-      assert_raises_message(/must be a non-split/) { @registry.for(Fixnum) { method :foo, split: true } }
-      assert_raises_message(/must be a split/) { @registry.for(Fixnum) { method :bar } }
+      assert_raises_message(/must be a non-split/) { @registry.for(Integer) { method :foo, split: true } }
+      assert_raises_message(/must be a split/) { @registry.for(Integer) { method :bar } }
 
       assert_equal 2, @registry.methods.size
     end

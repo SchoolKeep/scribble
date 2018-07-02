@@ -32,10 +32,10 @@ describe Scribble do
 
   it 'provides arity errors' do
     Scribble::Registry.reset do
-      Scribble::Registry.for Fixnum do
+      Scribble::Registry.for Integer do
         method :qux
-        method :qux, Fixnum, String, [String, 1]
-        method :qux, Fixnum, String, String, String, String, [Fixnum]
+        method :qux, Integer, String, [String, 1]
+        method :qux, Integer, String, String, String, String, [Integer]
       end
 
       assert_scribble_raises '{{ partial }}', Scribble::Errors::Arity, "Wrong number of arguments (0 for 1-2) for 'partial' at line 1 column 4"
@@ -46,8 +46,8 @@ describe Scribble do
 
   it 'provides argument errors' do
     Scribble::Registry.reset do
-      Scribble::Registry.for Fixnum do
-        method :qux, [Fixnum], String
+      Scribble::Registry.for Integer do
+        method :qux, [Integer], String
       end
 
       assert_scribble_raises '{{ partial 1 }}',   Scribble::Errors::Argument, "Expected string as 1st argument to 'partial', got number at line 1 column 12"
@@ -66,8 +66,8 @@ describe Scribble do
     Scribble::Registry.reset do
       class SomeBlock < Scribble::Block
         def foo; render; end; register :foo
-        method :bar, Fixnum, returns: 'bar'
-        method :baz, Fixnum, [Fixnum], returns: 'baz'
+        method :bar, Integer, returns: 'bar'
+        method :baz, Integer, [Integer], returns: 'baz'
       end
 
       class SomeMethod < Scribble::Method

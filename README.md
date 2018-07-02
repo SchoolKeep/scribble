@@ -422,16 +422,16 @@ In previous sections you have seen some method signatures. Both the `method` and
 ``` ruby
 Scribble::Registry.for String do
   # method1 takes an integer and a required string
-  method :method1, Fixnum, String
+  method :method1, Integer, String
 
   # method2 takes an integer and zero or more strings
-  method :method2, Fixnum, [String]
+  method :method2, Integer, [String]
 
   # method3 takes an integer and up to one string (an optional string)
-  method :method3, Fixnum, [String, 1]
+  method :method3, Integer, [String, 1]
 
   # method4 takes an integer, one to four strings and after that zero or more integers
-  method :method4, Fixnum, String, [String, 3], [Fixnum]
+  method :method4, Integer, String, [String, 3], [Integer]
 end
 ```
 

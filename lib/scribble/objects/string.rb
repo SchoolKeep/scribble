@@ -22,20 +22,20 @@ module Scribble
     method :empty, as: 'empty?'
 
     # Concatenation
-    method :add,     Fixnum, to: ->(fixnum) { self + fixnum.to_s }
+    method :add,     Integer, to: ->(fixnum) { self + fixnum.to_s }
     method :add,     String, as: '+'
     method :append,  String, as: '+'
     method :prepend, String
 
     # Repetition
-    method :multiply, Fixnum, to: ->(count) { Support::Utilities.repeat self, count }
-    method :repeat,   Fixnum, to: ->(count) { Support::Utilities.repeat self, count }
+    method :multiply, Integer, to: ->(count) { Support::Utilities.repeat self, count }
+    method :repeat,   Integer, to: ->(count) { Support::Utilities.repeat self, count }
 
     # Truncation
-    method :truncate, Fixnum,               to: ->(length)           { Support::Utilities.truncate self, false, length, ' ...' }
-    method :truncate, Fixnum, String,       to: ->(length, omission) { Support::Utilities.truncate self, false, length, omission }
-    method :truncate_words, Fixnum,         to: ->(length)           { Support::Utilities.truncate self, true,  length, ' ...' }
-    method :truncate_words, Fixnum, String, to: ->(length, omission) { Support::Utilities.truncate self, true,  length, omission }
+    method :truncate, Integer,               to: ->(length)           { Support::Utilities.truncate self, false, length, ' ...' }
+    method :truncate, Integer, String,       to: ->(length, omission) { Support::Utilities.truncate self, false, length, omission }
+    method :truncate_words, Integer,         to: ->(length)           { Support::Utilities.truncate self, true,  length, ' ...' }
+    method :truncate_words, Integer, String, to: ->(length, omission) { Support::Utilities.truncate self, true,  length, omission }
 
     # Replacement
     method :replace,       String, String, to: ->(replace, with) { self.gsub replace, with }

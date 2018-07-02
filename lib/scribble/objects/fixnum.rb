@@ -1,5 +1,5 @@
 module Scribble
-  Registry.for Fixnum do
+  Registry.for Integer do
     name 'number'
 
     to_boolean { !zero? }
@@ -10,24 +10,24 @@ module Scribble
     method :and, Object, cast: 'to_boolean'
 
     # Equality
-    method :equals,  Fixnum, as: '=='
-    method :differs, Fixnum, as: '!='
+    method :equals,  Integer, as: '=='
+    method :differs, Integer, as: '!='
     method :equals,  Object, returns: false
     method :differs, Object, returns: true
 
     # Comparisons
-    method :greater,          Fixnum, as: '>'
-    method :greater_or_equal, Fixnum, as: '>='
-    method :less,             Fixnum, as: '<'
-    method :less_or_equal,    Fixnum, as: '<='
+    method :greater,          Integer, as: '>'
+    method :greater_or_equal, Integer, as: '>='
+    method :less,             Integer, as: '<'
+    method :less_or_equal,    Integer, as: '<='
 
     # Calculations
-    method :add,       Fixnum, as: '+'
-    method :subtract,  Fixnum, as: '-'
-    method :multiply,  Fixnum, as: '*'
-    method :remainder, Fixnum, as: '%'
+    method :add,       Integer, as: '+'
+    method :subtract,  Integer, as: '-'
+    method :multiply,  Integer, as: '*'
+    method :remainder, Integer, as: '%'
 
-    method :divide,    Fixnum, to: ->(n) {
+    method :divide,    Integer, to: ->(n) {
       begin
         self / n
       rescue ZeroDivisionError

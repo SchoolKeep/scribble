@@ -1,7 +1,7 @@
 module Scribble
   module Methods
     class Times < Block
-      register :times, on: Fixnum
+      register :times, on: Integer
 
       def times
         render * @receiver
